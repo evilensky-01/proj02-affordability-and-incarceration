@@ -8,16 +8,25 @@ See the [Project 02 instructions](https://data385.github.io/project/proj02_whole
 
 _Who has the problem, what decision or need it involves, why it matters, and what you expect to find._
 
+Social welfare programs in theory help mitigate crime and poverty. Assessing affordable housing's affect on 
+incarcerated population levels could potentially indicate an economic insurance against the costs surrounding 
+jailing, court fees, regular imprisonment costs, and damages from crime. I expect to find that areas with more
+affordable housing will have lower incarceration rates.
 
 ## 2. Research question
 
 _A clear association between a response and at least one predictor variable._
 
+How do number of available section 8 housing units and percent occupied affect the incarceration rate by county?
 
 ## 3. Data acquisition
 
 _In 1-2 sentences, describe the data you intend to collect and how you will get it._
 
+There are two data sets I will be using: the Vera Institute's "Incarceration and Inequality Public Data"
+GitHub repository, and the United States Department of Housing and Urban Development, Office of Policy
+Development and Research "Picture of Subsidized Households" data, both of which are publicly available for
+download.
 
 ### a. Confirm viability
 

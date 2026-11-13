@@ -23,10 +23,15 @@ How do number of available section 8 housing units and percent occupied affect t
 
 _In 1-2 sentences, describe the data you intend to collect and how you will get it._
 
-There are two data sets I will be using: the Vera Institute's "Incarceration and Inequality Public Data"
-GitHub repository, and the United States Department of Housing and Urban Development, Office of Policy
-Development and Research "Picture of Subsidized Households" data, both of which are publicly available for
-download.
+There are three data sets I will be using: 
+- Vera Institute's "Incarceration and Inequality Public Data" GitHub repository
+- United States Department of Housing and Urban Development, Office of Policy Development and Research 
+  "Picture of Subsidized Households" data
+
+Both of these are publicly available for download.
+
+The third data set is one I will create, following https://jobsfirst.ca.gov/regions/ guidelines on
+regional economic boundaries.
 
 ### a. Confirm viability
 
@@ -43,6 +48,8 @@ _Scraping: summarize the "Before You Scrape" checklist. Downloading: citation, l
   - How was it collected: Data on households were sent by agencies and landlords to HUD, and were 
   summarized by HUD. Data on the number of units available and units occupied are from HUD's own 
   administrative records.
+- Explanation for custom data set: I will create Google Sheets document with two variables:
+  county_name and econ_region. This will sort California's 58 counties into 13 economic regions.
 
 ### b. Variables of interest
 
@@ -52,8 +59,9 @@ _If you do not have the data yet, list the variables you plan to collect and the
 - total_units (HUD); numeric; number of units under contract for federal subsidy and available for occupancy
 - total_occupied (HUD); numeric; number of occupied units under contract for federal subsidy
 - vera_white_jail_pop (Vera): numeric; white jail population in a county in a given year
-- county_name (Vera): character; county name
+- county_name (Vera, Sheet): character; county name
 - region (Vera): character; region of the United States, characterized by South, West, Midwest, and Northeast
+- econ_region: character; economic region described in https://jobsfirst.ca.gov/regions/
 
 ## 4. Data example
 
@@ -65,7 +73,7 @@ _Scraping: a URL and an annotated screenshot. Downloading: a link to your render
 
 _The techniques and functions you plan to use to import, wrangle, visualize, and explore the data, and why each is needed._
 
-- Import: read_xlsx() and read_csv()
+- Import: read_xlsx(), read_sheet(), and read_csv()
 - Wrangle: filter() and inner_join(); the goals are to filter the HUD data to only section 8 program information,
   filter the Vera data to be only 2025 data, and then use inner_join() on the variables in each data set that
   refer to the county name. Since the HUD data was downloaded as california only, there shouldn't be a need to

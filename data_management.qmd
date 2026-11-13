@@ -1,0 +1,28 @@
+---
+title: "Data Management"
+author: "Elazar Vilensky"
+date: today
+format: pdf
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+#| label: read-data
+incarceration <- read_csv(here::here("data/incarceration_trends_county.csv"))
+hud_census_2025 <- read_xlsx(here::here("data/COUNTY_2025_2020census.xlsx"))
+```
+
+```{r}
+#| label: glimpse
+glimpse(incarceration)
+glimpse(hud_census_2025)
+```
+

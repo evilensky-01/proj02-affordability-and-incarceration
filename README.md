@@ -17,20 +17,22 @@ affordable housing will have lower incarceration rates.
 
 _A clear association between a response and at least one predictor variable._
 
-How do number of available section 8 housing units and percent occupied affect the incarceration rate by county?
+How do number of available section 8 housing units and percent occupied affect the incarceration rate 
+by county in 2019?
 
 ## 3. Data acquisition
 
 _In 1-2 sentences, describe the data you intend to collect and how you will get it._
 
-There are three data sets I will be using: 
+There are four data sets I will be using: 
 - Vera Institute's "Incarceration and Inequality Public Data" GitHub repository
 - United States Department of Housing and Urban Development, Office of Policy Development and Research 
   "Picture of Subsidized Households" data
+- udata::county_complete, a compilation of US census data and BLS data
 
-Both of these are publicly available for download.
+All of these are publicly available for download.
 
-The third data set is one I will create, following https://jobsfirst.ca.gov/regions/ guidelines on
+The fourth data set is one I will create, following https://jobsfirst.ca.gov/regions/ guidelines on
 regional economic boundaries.
 
 ### a. Confirm viability
@@ -48,6 +50,7 @@ _Scraping: summarize the "Before You Scrape" checklist. Downloading: citation, l
   - How was it collected: Data on households were sent by agencies and landlords to HUD, and were 
   summarized by HUD. Data on the number of units available and units occupied are from HUD's own 
   administrative records.
+- Citation: Çetinkaya-Rundel M, Diez D, Dorazio L (2024). usdata: Data on the States and Counties of the United States. R package version 0.3.1, https://openintrostat.github.io/usdata/, https://github.com/OpenIntroStat/usdata.
 - Explanation for custom data set: I will create Google Sheets document with two variables:
   county_name and econ_region. This will sort California's 58 counties into 13 economic regions.
 
@@ -56,12 +59,14 @@ _Scraping: summarize the "Before You Scrape" checklist. Downloading: citation, l
 _If you do not have the data yet, list the variables you plan to collect and the exact question text. Include 1) the variable name, 2) data type 3) description. Use bullet points._
 
 - vera_total_jail_pop (Vera); numeric; total jail population in a county in a given year
-- total_units (HUD); numeric; number of units under contract for federal subsidy and available for occupancy
-- total_occupied (HUD); numeric; number of occupied units under contract for federal subsidy
-- vera_white_jail_pop (Vera): numeric; white jail population in a county in a given year
+- urbanicity (Vera): character; whether the county is urban, suburban, small/mid, or rural
 - county_name (Vera, Sheet): character; county name
-- region (Vera): character; region of the United States, characterized by South, West, Midwest, and Northeast
-- econ_region: character; economic region described in https://jobsfirst.ca.gov/regions/
+- econ_region (Sheet): character; economic region described in https://jobsfirst.ca.gov/regions/
+- total_units (HUD): numeric; number of units under contract for federal subsidy and available for occupancy
+- total_occupied (HUD): numeric; number of occupied units under contract for federal subsidy
+- months_waiting (HUD): numeric; average wait time, in months, before being able to enter the subsidized housing
+- name (usdata): character; county name
+- pop2019 (usdata): numeric; population of a given county
 
 ## 4. Data example
 
@@ -75,26 +80,28 @@ _The techniques and functions you plan to use to import, wrangle, visualize, and
 
 - Import: read_xlsx(), read_sheet(), and read_csv()
 - Wrangle: filter() and inner_join(); the goals are to filter the HUD data to only section 8 program information,
-  filter the Vera data to be only 2025 data, and then use inner_join() on the variables in each data set that
+  filter the Vera data to be only 2024 data, and then use inner_join() on the variables in each data set that
   refer to the county name. Since the HUD data was downloaded as california only, there shouldn't be a need to
   filter the counties.
-- Visualizing and Exploring: I will use ggplot for most of my data exploration in my primary variables of choice,
-  using geom_point() for the numeric relationships, but likely a stacked bar chart to visualize racial demographics
-  in incarceration rates. It will be important to consider missing data, because both of these data sets have it. However,
-  Vera's is coded as NA, while HUD's is coded as -1.
-
-## 6. Modeling
+- Visualizing and Exploring: mutate() will likely be used frequently to adjust for largely different county population
+  sizes. Missing data will have to be accounted for (NAs are in the Vera data set, and -1 in the HUD data set).
+  ggplot will be my visualizer, but I will also be using regsubsets() from the "leaps" package to narrow down the
+  most parsimonious model.
 
 _The models you plan to use, your response and predictor variables, and why the models fit your research question._
 
-
+y goal is to establish a relationship between affordable housing metrics and
+jail population counts. Populations are only integers, but the jail population counts are large enough that
+I could still infer a relationship, strong or weak. So, I will be using multiple linear regression.
 
 ## 7. Communicate
 
 _How you plan to present your results (website, poster, or short slide presentation)._
 
+I plan to make a website to present my project.
 
 ## 8. LLM disclaimer
 
 _Whether and how you will use AI tools: the specific tool, its use, and your data protection methods. If you won't use any, say so._
 
+I will not be using LLMs for my project.

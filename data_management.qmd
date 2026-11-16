@@ -13,19 +13,23 @@ execute:
 library(tidyverse)
 library(readxl)
 library(googlesheets4)
+library(usdata)
 ```
 
 ```{r}
 #| label: read-data
 incarceration <- read_csv(here::here("data/incarceration_trends_county.csv"))
-hud_census_2025 <- read_xlsx(here::here("data/COUNTY_2025_2020census.xlsx"))
+hud_census_2019 <- read_csv(here::here("data/COUNTY_2019_2010census.csv"))
 ca_econ_regions <- read_sheet("https://docs.google.com/spreadsheets/d/1lPrXvyP0_r4c1CKzU3Hv2SdJr7KCyjIv3zkJGLXBvNA/edit?usp=sharing")
+county_complete <- usdata::county_complete |>
+  mutate(fips = as.numeric(fips))
 ```
 
 ```{r}
 #| label: glimpse
 glimpse(incarceration)
-glimpse(hud_census_2025)
+glimpse(hud_census_2019)
 glimpse(ca_econ_regions)
+glimpse(county_complete)
 ```
 

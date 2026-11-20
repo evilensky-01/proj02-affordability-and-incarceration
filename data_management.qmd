@@ -25,6 +25,12 @@ county_complete <- usdata::county_complete |>
   mutate(fips = as.numeric(fips))
 ```
 
+NOTE FOR DR D: "incarceration" has 128507 observations (rows), but after filtering for observations only in California and in the year 2019, there are only 58 observations (counties) and 164 variables (columns). Similarly, with "county_complete", there are originally 3142 observations. Filtering by state == "California" and selecting pop_2019 yields a 58x1 tibble of California county populations in 2019. "ca_econ_regions" by construction has only one row per county, so there are 58 rows. 
+
+Joining these data sets with the "hud_census_2019" data set will reduce the rows to 53 observations, however. These missing counties are  Alpine County, Del Norte County, Sierra County, Trinity County, Mono County, and Nevada County. One row in "hud_census_2019" has a county labeled "Missing, California" and a fips code of "06XXX", and will thus be omitted.
+
+In total, there will be 52 observations.
+
 ```{r}
 #| label: glimpse
 glimpse(incarceration)
